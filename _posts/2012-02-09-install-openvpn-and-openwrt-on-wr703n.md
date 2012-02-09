@@ -60,14 +60,52 @@ web 界面刷，第二个只能 telnet 到路由器刷
     /etc/init.d/firewall stop
     /etc/init.d/dnsmasq restart
 
-安装软件包：
+格式化 U 盘（在别的 linux 机器上进行，官方建议关闭 journal 以提高性能）：
 
     mkfs.ext4 -O ^has_journal,extent /dev/sda1
-    opkg install kmod-usb-storage block-mount kmod-usb-storage-extras kmod-usb2 kmod-nls-base kmod-nls-iso8859-1 \ 
-    kmod-nls-utf8 kmod-fs-ext4
+
+安装挂载 U 盘需要的软件包：
+
+    opkg install kmod-usb-storage block-mount kmod-usb-storage-extras kmod-usb2 \ 
+    kmod-nls-base kmod-nls-iso8859-1 kmod-nls-utf8 kmod-fs-ext4
+
+配置 U 盘自动挂载，自己编辑 /etc/config/fstab 一看就知道了，注意 enabled，另外在 
+`/etc/opkg.conf` 中增加 `dest usb /mnt/usb`，安装软件包：
+
     opkg install kmod-tun libopenssl zlib ldconfig
     opkg --dest usb install liblzo openvpn
     opkg --dest usb install vim-full
+
+配置 OpenVPN：
+    config openvpn linode
+        option client 1
+        option script_security 2
+        option max_routes 2500
+        option dev tun
+        option proto udp
+        option remote 173.230.148.194 1194 
+        option resolv_retry infinite
+        option ca /mnt/usb/etc/openvpn/ca.crt
+        option cert  /mnt/usb/etc/openvpn/wr703n.crt
+        option key  /mnt/usb/etc/openvpn/wr703n.key
+        option comp_lzo 1
+        option persist_key 1
+        option persist_tun 1
+        option nobind 1
+        option float 1
+        option remote_cert_tls server
+        option shaper 5242880
+        option ping 10
+        option ping_restart 60
+        option verb 6
+        option status /mnt/usb/var/log/openvpn/openvpn-status.log
+        option log /mnt/usb/var/log/openvpn/openvpn.log
+
+        list route '101.0.0.0 255.255.252.0 net_gateway 5'
+
+需要注意的是，`/etc/init.d/openvpn` 中没有 max_routes 这个选项，需要自己加，尽量
+加在前面否则生成的配置文件可能会不正确，路由部分的引号是必须的，我就因为这浪费了
+不少时间。
 
 参考：  
 http://lgallardo.com/en/2011/09/08/configurar-openvpn-en-openwrt/
