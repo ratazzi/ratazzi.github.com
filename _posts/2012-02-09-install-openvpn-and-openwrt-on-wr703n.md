@@ -17,7 +17,7 @@ telnet 到路由器刷，`mtd -r write openwrt-xxx.bin firmware`
     config 'interface' 'lan'
         option 'ifname' 'eth0'
         option 'proto' 'dhcp'
-        config 'interface' 'wifi'
+    config 'interface' 'wifi'
         option 'proto' 'static'
         option 'ipaddr' '192.168.2.1'
         option 'netmask' '255.255.255.0'
