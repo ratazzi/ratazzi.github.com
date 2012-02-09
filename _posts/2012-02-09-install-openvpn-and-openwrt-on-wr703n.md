@@ -6,13 +6,13 @@ tags: []
 ---
 {% include JB/setup %}
 
-终究还是买了个，同时买了个 U 盘，开始刷的官方固件，我不知道不带 web 界面，重新刷了个带 web 界面的，折腾了下
-结果因为空间不足以安装挂载 U 盘的软件包，无奈刷回了官方固件，大概也知道了怎么配置网络，两个固件第一个可以直接在
-web 界面刷，第二个只能 telnet 到路由器刷
-`mtd -r write openwrt-xxx.bin firmware`
+终究还是买了个，同时买了个 U 盘，开始刷的官方固件，我不知道不带 web 界面，重新刷
+了个带 web 界面的，折腾了下 结果因为空间不足以安装挂载 U 盘的软件包，无奈刷回了官
+方固件，大概也知道了怎么配置网络，两个固件第一个可以直接在 web 界面刷，第二个只能
+telnet 到路由器刷，`mtd -r write openwrt-xxx.bin firmware`
 
-重启后 telnet 配置网络，首先要可以上网先，我没有配置 PPPOE，而是直接接的之前的路由器
-/etc/config/network:
+重启后 telnet 配置网络，首先要可以上网先，我没有配置 PPPOE，而是直接接的之前的路
+由器 /etc/config/network:
 
     config 'interface' 'lan'
         option 'ifname' 'eth0'
@@ -51,7 +51,7 @@ web 界面刷，第二个只能 telnet 到路由器刷
     iptables -t nat -A POSTROUTING -s 192.168.2.0/24 -o eth0 -j MASQUERADE
     iptables -t nat -A POSTROUTING -s 192.168.2.0/24 -o tun0 -j MASQUERADE
 
-重启相关服务：
+我按照官方文档配置防火墙没有成功，上面是从别的地方抄过来的规则，重启相关服务：
 
     /etc/init.d/network restart
     ifup wifi
@@ -103,9 +103,18 @@ web 界面刷，第二个只能 telnet 到路由器刷
         option log /mnt/usb/var/log/openvpn/openvpn.log
         list route '101.0.0.0 255.255.252.0 net_gateway 5'
 
-需要注意的是，`/etc/init.d/openvpn` 中没有 max_routes 这个选项，需要自己加，尽量
-加在前面否则生成的配置文件可能会不正确，路由部分的引号是必须的，我就因为这浪费了
-不少时间。
+启动脚本做个软链接到 `/etc/init.d/`，可执行文件的绝对路径可能也需要改下，还需
+要配之下 `ldconfig`：
+
+    echo '/mnt/usb/usr/lib' > /etc/ld.so.conf
+    ldconfig
+    /etc/init.d/openvpn enable
+    /etc/init.d/openvpn start
+
+需要注意的是，`/etc/init.d/openvpn` 中没有 max_routes 这个选项，需要自己加，尽
+量加在前面否则生成的配置文件可能会不正确，路由部分的引号是必须的，我就因为这浪
+费了不少时间，最后路由器的时间一定要正确，否则连接会报奇怪的错误。
 
 参考：  
-http://lgallardo.com/en/2011/09/08/configurar-openvpn-en-openwrt/
+[Routed AP](http://wiki.openwrt.org/doc/recipes/routedap)
+[Setting OpenVPN on OpenWrt](http://lgallardo.com/en/2011/09/08/configurar-openvpn-en-openwrt/)
