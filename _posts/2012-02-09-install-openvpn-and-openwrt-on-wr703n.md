@@ -77,6 +77,7 @@ web 界面刷，第二个只能 telnet 到路由器刷
     opkg --dest usb install vim-full
 
 配置 OpenVPN：
+
     config openvpn linode
         option client 1
         option script_security 2
@@ -100,7 +101,6 @@ web 界面刷，第二个只能 telnet 到路由器刷
         option verb 6
         option status /mnt/usb/var/log/openvpn/openvpn-status.log
         option log /mnt/usb/var/log/openvpn/openvpn.log
-
         list route '101.0.0.0 255.255.252.0 net_gateway 5'
 
 需要注意的是，`/etc/init.d/openvpn` 中没有 max_routes 这个选项，需要自己加，尽量
