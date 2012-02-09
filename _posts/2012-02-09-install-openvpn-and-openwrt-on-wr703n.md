@@ -12,7 +12,7 @@ tags: []
 telnet 到路由器刷，`mtd -r write openwrt-xxx.bin firmware`
 
 重启后 telnet 配置网络，首先要可以上网先，我没有配置 PPPOE，而是直接接的之前的路
-由器 /etc/config/network:
+由器 `/etc/config/network`:
 
     config 'interface' 'lan'
         option 'ifname' 'eth0'
@@ -22,7 +22,7 @@ telnet 到路由器刷，`mtd -r write openwrt-xxx.bin firmware`
         option 'ipaddr' '192.168.2.1'
         option 'netmask' '255.255.255.0'
 
-/etc/config/wireless
+`/etc/config/wireless`
 
     config 'wifi-iface'
         option 'device' 'radio0'
@@ -33,7 +33,7 @@ telnet 到路由器刷，`mtd -r write openwrt-xxx.bin firmware`
         option 'secret' 'password'
         option 'key' 'key'
 
-/etc/config/dhcp
+`/etc/config/dhcp`
 
     config dhcp wifi
         option 'interface' 'wifi'
@@ -41,7 +41,7 @@ telnet 到路由器刷，`mtd -r write openwrt-xxx.bin firmware`
         option 'limit' '150'
         option 'leasetime' '12h'
 
-/etc/rc.local
+`/etc/rc.local`
 
     iptables -t nat -F
     iptables -t filter -F
@@ -69,7 +69,7 @@ telnet 到路由器刷，`mtd -r write openwrt-xxx.bin firmware`
     opkg install kmod-usb-storage block-mount kmod-usb-storage-extras kmod-usb2 \ 
     kmod-nls-base kmod-nls-iso8859-1 kmod-nls-utf8 kmod-fs-ext4
 
-配置 U 盘自动挂载，自己编辑 /etc/config/fstab 一看就知道了，注意 enabled，另外在 
+配置 U 盘自动挂载，自己编辑 `/etc/config/fstab` 一看就知道了，注意 enabled，另外在 
 `/etc/opkg.conf` 中增加 `dest usb /mnt/usb`，安装软件包：
 
     opkg install kmod-tun libopenssl zlib ldconfig
@@ -111,10 +111,10 @@ telnet 到路由器刷，`mtd -r write openwrt-xxx.bin firmware`
     /etc/init.d/openvpn enable
     /etc/init.d/openvpn start
 
-需要注意的是，`/etc/init.d/openvpn` 中没有 max_routes 这个选项，需要自己加，尽
+需要注意的是，`/etc/init.d/openvpn` 中没有 `max_routes` 这个选项，需要自己加，尽
 量加在前面否则生成的配置文件可能会不正确，路由部分的引号是必须的，我就因为这浪
 费了不少时间，最后路由器的时间一定要正确，否则连接会报奇怪的错误。
 
 参考：  
-[Routed AP](http://wiki.openwrt.org/doc/recipes/routedap)
+[Routed AP](http://wiki.openwrt.org/doc/recipes/routedap)   
 [Setting OpenVPN on OpenWrt](http://lgallardo.com/en/2011/09/08/configurar-openvpn-en-openwrt/)
