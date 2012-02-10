@@ -2,7 +2,7 @@
 layout: post
 title: "Install OpenVPN and OpenWrt on WR703N"
 category: 
-tags: []
+tags: ['OpenWrt', 'OpenVPN', 'WR703N']
 ---
 {% include JB/setup %}
 
