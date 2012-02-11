@@ -20,4 +20,4 @@ Snow Leopard 及以前的系统貌似可以直接使用 samba 之类的搞定，
 
 `nss-mdns` 我没找到这个包，但是发现系统本来就有 `nsswitch.conf `这个文件，直接编辑就可以了，上截图
 
-![Time Machine](http://cl.ly/0i36420Z3e2Q2h3m0u3M)
+<img width="640" src="http://cl.ly/0i36420Z3e2Q2h3m0u3M/Screen%20Shot%202011-08-14%20at%205.56.54%20PM.png" alt="Time Machine">
