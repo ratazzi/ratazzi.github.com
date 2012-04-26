@@ -8,10 +8,8 @@ title: Ratazzi's Blog
 
 非常喜欢现在这种简单的方式，用最喜欢的编辑器，摆脱传统的浏览器写作然后 POST 的方式。
 
-## TODO
-
-* 主题的制作，因为使静态页面，可能需要有比较大的变动
-* 文章的迁移，一些没有价值的废话可能会去掉
+* [http://github.com/ratazzi](http://github.com/ratazzi)
+* [http://twitter.com/ratazzi_potts](http://twitter.com/ratazzi_potts)
 
 ## 最近的文章
 <ul class="posts">
