@@ -14,11 +14,11 @@ title : Sitemap
     <url>
         <loc>http://{{ site.production_url }}{{ post.url }}</loc>
         {% if post.last_updated %}
-        <lastmod>{{ post.last_updated | date: "%Y-%m-%d" }}</lostmod>
+        <lastmod>{{ post.last_updated | date: "%Y-%m-%d" }}</lastmod>
         {% elsif post.date %}
-        <lastmod>{{ post.date | date: "%Y-%m-%d" }}</lostmod>
+        <lastmod>{{ post.date | date: "%Y-%m-%d" }}</lastmod>
         {% else %}
-        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lostmod>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
         {% endif %}
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
