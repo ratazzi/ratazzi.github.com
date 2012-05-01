@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <sitemap>
+        <loc>http://ratazzi.org/sitemap.xml</loc>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+    </sitemap>
+    <sitemap>
+        <loc>http://blog.ratazzi.org/sitemap.xml</loc>
+        <lastmod>2012-03-28</lastmod>
+    </sitemap>
+</sitemapindex>
