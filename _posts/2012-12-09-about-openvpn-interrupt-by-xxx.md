@@ -14,7 +14,7 @@ tags: ['OpenVPN']
 
 后面一直是 `opcode` 为 `P_CONTROL_V1`, `P_ACK_V1`, `P_DATA_V1` 的数据包交互，连接建立完成之后基本上都是 `opcode` 为 `P_DATA_V1` 的数据包了，因为关键在前面几个包，后面也比较复杂就没研究下去。
 
-更详细的关于连部分的可以参考：
+更详细的关于连接部分的可以参考：
 
 <http://blog.csdn.net/dog250/article/details/6647457>
 
