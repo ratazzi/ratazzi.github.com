@@ -8,11 +8,13 @@ tags: ['OpenVPN']
 
 ## OpenVPN 连接的建立
 
-* 首先客户端发送一个 opcode 为 `P_CONTROL_HARD_RESET_CLIENT_V2` 的包，这个数据包有一个 sessionid
-* 而服务器应该回应一个 opcode 为 `P_CONTROL_HARD_RESET_SERVER_V2` 的包，并且包含客户端的 sessionid，同时也会有一个服务端的 sessionid
-* 然后客户端发送 opcode 为 `P_ACK_V1` 的 ACK，还有一个 opcode 为 `P_CONTROL_V1` 的 control 类型包
+* 首先客户端发送一个 `opcode` 为 `P_CONTROL_HARD_RESET_CLIENT_V2` 的包，这个数据包有一个 `sessionid`
+* 服务端回应一个 `opcode` 为 `P_CONTROL_HARD_RESET_SERVER_V2` 的包，并且包含客户端的 `sessionid`，同时也会有一个服务端的 `sessionid`
+* 然后客户端发送 `opcode` 为 `P_ACK_V1` 的包，还有一个 `opcode` 为 `P_CONTROL_V1` 的包
 
-后面一直是 opcode 为 `P_CONTROL_V1`, `P_ACK_V1`, `P_DATA_V1` 的数据包交互，连接建立完成之后基本上都是 opcode 为 `P_DATA_V1` 的数据包了，因为关键在前面几个包，后面也比较复杂就没研究下去，`P_CONTROL_HARD_RESET_CLIENT_V2` 和 `P_CONTROL_HARD_RESET_SERVER_V2` 这两个类型的包只有一次。
+后面一直是 opcode 为 `P_CONTROL_V1`, `P_ACK_V1`, `P_DATA_V1` 的数据包交互，连接建立完成之后基本上都是 opcode 为 `P_DATA_V1` 的数据包了，因为关键在前面几个包，后面也比较复杂就没研究下去。
+
+比较重要的是 `P_CONTROL_HARD_RESET_CLIENT_V2` 和 `P_CONTROL_HARD_RESET_SERVER_V2` 这两个类型的包只有一次。
 
 更详细的连接协议参考：
 
@@ -20,7 +22,7 @@ tags: ['OpenVPN']
 
 ## 数据包分析
 
-OpenVPN 协议的 opcode 部分注解：
+OpenVPN 协议的 `opcode` 部分注解：
 
     P_CONTROL_HARD_RESET_CLIENT_V2   16 进制为 0x38 (其实是 0x38 >> 3 = 7)
     P_CONTROL_HARD_RESET_SERVER_V2   16 进制为 0x40 (0x40 >> 3 = 8)
@@ -34,13 +36,14 @@ OpenVPN 协议的 opcode 部分注解：
 
     # 192.14.200.95 为客户端
     # 222.222.222.222 为服务端，OpenVPN 端口为 6671
+    # 当然这里的 ip 地址都是假的
 
     21:25:49.199836 IP (tos 0x0, ttl 51, id 0, offset 0, flags [DF], proto UDP (17), length 42)
         192.14.200.95.45323 > 222.222.222.222.6671: UDP, length 14
         0x0000:  4500 002a 0000 4000 3311 85ac c00e c85f  E..*..@.3......_
         0x0010:  dede dede b10b 1a0f 0016 0d1d 3836 a1fa  ............86..
         0x0020:  eaca 9577 0b00 0000 0000                 ...w......
-    # 第一行的最后四字节为源 ip 地址
+    # 第一行的最后四字节为源 ip 地址，可以使用 inet_ntoa('\xc0\x0e\xc8\x5f') 还原
     # 第二行的前四字节为 ip 目标地址，中间八字节为 UDP 头部
     # 第二行的最后四字节的第一字节即为 opcode 和 kid
     # 紧接着 0x38 后面的 36 a1 fa ea ca 95 77 是客户端的 sessionid
@@ -164,7 +167,7 @@ OpenVPN 协议的 opcode 部分注解：
         0x0020:  518f 49a9 7900 0000 0000                 Q.I.y.....
     # 可以看到都是客户端发起的 0x38 的请求，没有回应
 
-干扰之后服务器端的数据包：
+干扰之后服务端的数据包：
 
     19:28:11.392071 IP (tos 0x0, ttl 50, id 0, offset 0, flags [DF], proto UDP (17), length 42)
         183.14.209.53.43005 > 222.222.222.222.6669: UDP, length 14
@@ -247,11 +250,11 @@ OpenVPN 协议的 opcode 部分注解：
         0x0010:  b70e d135 1a0d ebb6 0022 cb20 40f4 e0fe  ...5....."..@...
         0x0020:  55c3 e32a 2001 0000 0000 6d99 2bfb e8b6  U..*......m.+...
         0x0030:  0bf3 0000 0000                           ......
-    # 可以看到服务器虽然有收到客户端的请求包并且也回应了，但是一直在循环这个过程，也就是说后面的包直接被 gfw 丢弃了
+    # 可以看到服务端虽然有收到客户端的请求包并且也回应了，但是一直在循环这个过程，也就是说后面的包直接被 xxx 丢弃了
 
-## 总结
+对应客户端与服务端 `sessionid` 可以发现，客户端的第一个请求包服务端是收到了的，并且回应了，但是被丢弃了，简单的来说类似于 `tcp` 的三次握手一部分包直接被丢弃了，结合日志可以发现客户端发送五次请求后没有得到响应会重启整个过程。
 
-基本上可以确定用 iptables 来丢弃 gfw 的干扰数据包是没有希望了，经过这次的折腾发现 TCPDUMP 其实挺好用的。
+基本上可以确定用 `iptables` 来丢弃 xxx 的干扰数据包是没有希望了，经过这次的折腾发现 TCPDUMP 其实挺好用的。
 
 ## 所用工具
 
