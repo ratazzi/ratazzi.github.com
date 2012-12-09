@@ -12,9 +12,9 @@ tags: ['OpenVPN']
 * 服务端回应一个 `opcode` 为 `P_CONTROL_HARD_RESET_SERVER_V2` 的包，并且包含客户端的 `sessionid`，同时也会有一个服务端的 `sessionid`
 * 然后客户端发送 `opcode` 为 `P_ACK_V1` 的包，还有一个 `opcode` 为 `P_CONTROL_V1` 的包
 
-后面一直是 opcode 为 `P_CONTROL_V1`, `P_ACK_V1`, `P_DATA_V1` 的数据包交互，连接建立完成之后基本上都是 opcode 为 `P_DATA_V1` 的数据包了，因为关键在前面几个包，后面也比较复杂就没研究下去。
+后面一直是 `opcode` 为 `P_CONTROL_V1`, `P_ACK_V1`, `P_DATA_V1` 的数据包交互，连接建立完成之后基本上都是 `opcode` 为 `P_DATA_V1` 的数据包了，因为关键在前面几个包，后面也比较复杂就没研究下去。
 
-更详细的连接协议参考：
+更详细的关于连部分的可以参考：
 
 <http://blog.csdn.net/dog250/article/details/6647457>
 
@@ -52,7 +52,7 @@ OpenVPN 协议的 `opcode` 部分注解：
         0x0010:  c00e c85f 1a0f b10b 0022 c24a 4034 57c1  ..._.....".J@4W.
         0x0020:  c9c3 41ab 9201 0000 0000 36a1 faea ca95  ..A.......6.....
         0x0030:  770b 0000 0000                           w.....
-    # 紧接着 0x40 后面是服务端的 sessionid，最右面可以看到可以看到客户端的 sessionid
+    # 紧接着 0x40 后面是服务端的 sessionid，最后面可以看到客户端的 sessionid
 
     21:25:49.455169 IP (tos 0x0, ttl 51, id 0, offset 0, flags [DF], proto UDP (17), length 50)
         192.14.200.95.45323 > 222.222.222.222.6671: UDP, length 22
@@ -263,7 +263,7 @@ OpenVPN 协议的 `opcode` 部分注解：
 
 ## 参考文章及连接
 
-<http://en.wikipedia.org/wiki/IPv4>
-<http://en.wikipedia.org/wiki/User_Datagram_Protocol>
-<http://danielmiessler.com/study/tcpdump/>
-<http://blog.csdn.net/dog250/article/details/6647457>
+<http://en.wikipedia.org/wiki/IPv4>  
+<http://en.wikipedia.org/wiki/User_Datagram_Protocol>  
+<http://danielmiessler.com/study/tcpdump/>  
+<http://blog.csdn.net/dog250/article/details/6647457>  
