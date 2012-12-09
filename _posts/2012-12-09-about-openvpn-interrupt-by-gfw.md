@@ -1,4 +1,10 @@
-# 关于最近 OpenVPN 被干扰的分析
+---
+layout: post
+title: "关于最近 OpenVPN 被干扰的分析"
+category:
+tags: ['OpenVPN']
+---
+{% include JB/setup %}
 
 ## OpenVPN 连接的建立
 
