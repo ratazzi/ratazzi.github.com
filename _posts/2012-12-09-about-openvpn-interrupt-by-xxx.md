@@ -44,7 +44,7 @@ OpenVPN 协议的 `opcode` 部分注解：
     # 第一行的最后四字节为源 ip 地址，可以使用 inet_ntoa('\xc0\x0e\xc8\x5f') 还原
     # 第二行的前四字节为 ip 目标地址，中间八字节为 UDP 头部
     # 第二行的最后四字节的第一字节即为 opcode 和 kid
-    # 紧接着 0x38 后面的 36 a1 fa ea ca 95 77 是客户端的 sessionid
+    # 紧接着 0x38 后面的 36 a1 fa ea ca 95 77 0b 是客户端的 sessionid
 
     21:25:49.235381 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 54)
         222.222.222.222.6671 > 192.14.200.95.45323: UDP, length 26
