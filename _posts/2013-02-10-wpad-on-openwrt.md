@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "WPAD 在 OpenWRT 上的配置（PAC 文件自动分发）"
+title: "WPAD 在 OpenWrt 上的配置（PAC 文件自动分发）"
 category:
 tags: ['OpenWrt', 'WPAD', 'PAC']
 ---
