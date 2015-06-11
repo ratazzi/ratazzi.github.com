@@ -4,7 +4,6 @@ title: "git-svn 关键字替换"
 category: 
 tags: ['git-svn', 'Git', 'Subversion']
 ---
-{% include JB/setup %}
 
 废话不多说：
 	http://gist.github.com/1388111

@@ -4,7 +4,6 @@ title: "Install OpenVPN and OpenWrt on WR703N"
 category: 
 tags: ['OpenWrt', 'OpenVPN', 'WR703N']
 ---
-{% include JB/setup %}
 
 终究还是买了个，同时买了个 U 盘，开始刷的官方固件，我不知道不带 web 界面，重新刷
 了个带 web 界面的，折腾了下 结果因为空间不足以安装挂载 U 盘的软件包，无奈刷回了官

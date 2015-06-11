@@ -4,7 +4,6 @@ title: "WPAD 在 OpenWrt 上的配置（PAC 文件自动分发）"
 category:
 tags: ['OpenWrt', 'WPAD', 'PAC']
 ---
-{% include JB/setup %}
 
 自从 OpenVPN 沦陷以后，就不得不回到用代理的时代，之前刷好 OpenWrt 的路由器也闲置了，因为不能无痛翻墙，代理程序跑在路由器上我觉得已经没有什么意义了，因为每个设备都需要去配置代理，直到我知道了 [WPAD][wpad] 这个协议。
 

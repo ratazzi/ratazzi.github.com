@@ -4,7 +4,6 @@ title: "OpenWrt 捣鼓记"
 category: 
 tags: ['OpenWrt', 'OpenVPN']
 ---
-{% include JB/setup %}
 
 事情的起因是我不爽 OpenWrt 默认的 shell，因为一些洁癖，平常我都用 zsh，最起码也得用 bash，然后在 n 次由于后还是忍不住的改了 `/etc/passwd` 的默认 shell，当时完全没有想到的是这玩意儿影响那么大。后果是重启之后 ssh 验证不能了，本来是用 key 验证的，现在却让我输密码，输就输吧， tmd 还不认。
 

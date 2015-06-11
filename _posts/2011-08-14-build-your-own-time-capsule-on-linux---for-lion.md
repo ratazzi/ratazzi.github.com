@@ -4,7 +4,6 @@ title: "基于 Linux 的 Time Machine 备份 － 针对 Lion"
 category: 
 tags: ['Time Machine', 'Lion', ' AFP', 'netatalk']
 ---
-{% include JB/setup %}
 
 网上类似的文章不少，我就不重复了，捡重要的写，这里提供几篇靠谱的文章
 	http://www.gracecode.com/archives/3057/

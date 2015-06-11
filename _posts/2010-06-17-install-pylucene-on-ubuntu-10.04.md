@@ -4,7 +4,6 @@ title: "Ubuntu 10.04 下安装 PyLucene 3.0.1"
 category: 
 tags: ['Ubuntu', 'pylucene', 'lucene', 'lucid', 'python']
 ---
-{% include JB/setup %}
 
 环境：
 	* Ubuntu 10.04 64bit

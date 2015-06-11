@@ -4,7 +4,6 @@ title: "关于 PAC 文件远程 DNS"
 category: 
 tags: ['pac', 'firefox', 'socks']
 ---
-{% include JB/setup %}
 
 PAC 文件配合 firefox, ssh 简直是神器，但是在启用远程 DNS 的时候还是会有一些网站不能访问，为了畅通无阻，还需要改一下
 

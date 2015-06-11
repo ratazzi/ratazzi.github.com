@@ -4,7 +4,6 @@ title: "Install Nginx PHP MySQL On Gentoo"
 category: 
 tags: ['Gentoo', 'Nginx', 'PHP', 'VPS']
 ---
-{% include JB/setup %}
 
 这篇文章是整理之前的顺便按照最新的方法写的，cgi 方式改成 fpm
 

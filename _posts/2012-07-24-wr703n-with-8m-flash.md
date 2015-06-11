@@ -4,7 +4,6 @@ title: "WR703N 换 8M flash"
 category:
 tags: ['OpenWrt', 'WR703N']
 ---
-{% include JB/setup %}
 
 <br />
 ### 起因

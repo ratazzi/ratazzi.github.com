@@ -4,7 +4,6 @@ title: "优化 VPN 和 chnroutes"
 category: 
 tags: ['OpenVPN', 'chnroutes', 'iptables', 'squid', 'Dnsmasq']
 ---
-{% include JB/setup %}
 
 对于天朝这悲剧网络来说，我是被迫这样的，原因就不说了，主要优化以下几点：
 
